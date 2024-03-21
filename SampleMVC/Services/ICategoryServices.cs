@@ -15,5 +15,6 @@ namespace SampleMVC.Services
         Task Delete(int id);
         Task<IEnumerable<CategoryDTO>> GetWithPaging(int pageNumber, int pageSize, string name);
         Task<int> GetCountCategories(string name);
+        Task<IEnumerable<CategoryDTO>> GetAllWithPaging(int pageNumber, int pageSize, string name);
     }
 }
