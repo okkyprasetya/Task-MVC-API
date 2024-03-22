@@ -20,7 +20,7 @@ public partial class User
     public byte MaxAttempt { get; set; }
 
     [StringLength(255)]
-    public string FirstName { get; set; } = null!;
+    public string FirtName { get; set; } = null!;
 
     [StringLength(255)]
     public string LastName { get; set; } = null!;

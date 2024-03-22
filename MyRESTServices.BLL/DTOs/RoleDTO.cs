@@ -1,4 +1,5 @@
-﻿namespace MyRESTServices.BLL.DTOs
+﻿
+namespace MyRESTServices.BLL.DTOs
 {
     public class RoleDTO
     {
