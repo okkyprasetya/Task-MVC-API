@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyRESTServices.BLL.DTOs;
 using MyRESTServices.BLL.Interfaces;
@@ -36,6 +37,7 @@ namespace MyRESTServices.Controllers
             return await _articleBLL.GetArticleById(id);
         }
 
+        [Authorize(Roles = "Admin,Contributor")]
         //POST api/Articles
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ArticleCreateDTO articleCreateDTO)
@@ -81,6 +83,7 @@ namespace MyRESTServices.Controllers
             return CreatedAtAction(nameof(Get), new { id = article.ArticleID }, article);
         }*/
 
+        [Authorize(Roles = "Admin,Contributor")]
         [HttpPost("upload")]
         public async Task<IActionResult> Post([FromForm] ArticleWithFile articleWithFile)
         {
@@ -109,6 +112,7 @@ namespace MyRESTServices.Controllers
             return CreatedAtAction(nameof(Get), new { id = article.ArticleID }, article);
         }
 
+        [Authorize(Roles = "Admin,Contributor")]
         //PUT 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] ArticleUpdateDTO articleUpdateDTO)
@@ -124,6 +128,7 @@ namespace MyRESTServices.Controllers
             return Ok(article);
         }
 
+        [Authorize(Roles = "Admin,Contributor")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

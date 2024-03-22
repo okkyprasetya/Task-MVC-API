@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyRESTServices.Domain;
 using MyRESTServices.Domain.Models;
 
 namespace MyRESTServices.Data;
@@ -25,6 +26,8 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UsersRoles> UsersRoles { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -76,6 +79,21 @@ public partial class AppDbContext : DbContext
         {
             entity.Property(e => e.LastLogin).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.MaxAttempt).HasDefaultValue((byte)5);
+        });
+
+        modelBuilder.Entity<UsersRoles>(entity =>
+        {
+            entity.HasKey(ur => new { ur.Username, ur.RoleID }); // Define composite primary key
+
+            entity.HasOne<User>(ur => ur.User)
+                .WithMany(u => u.Roles)
+                .HasForeignKey(ur => ur.Username)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne<Role>(ur => ur.Role)
+                .WithMany(r => r.Users)
+                .HasForeignKey(ur => ur.RoleId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         OnModelCreatingPartial(modelBuilder);

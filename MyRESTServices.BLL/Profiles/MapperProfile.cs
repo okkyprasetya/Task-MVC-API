@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MyRESTServices.BLL.DTOs;
+using MyRESTServices.Domain;
 using MyRESTServices.Domain.Models;
 
 namespace MyRESTServices.BLL.Profiles
@@ -19,6 +20,8 @@ namespace MyRESTServices.BLL.Profiles
 
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<UserCreateDTO, User>();
+
+            CreateMap<UsersRoles, UsersRolesDTO>().ReverseMap();
 
             CreateMap<Role, RoleDTO>();
             CreateMap<RoleCreateDTO, Role>();

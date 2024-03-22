@@ -1,4 +1,6 @@
-﻿using MyRESTServices.Data.Interfaces;
+﻿
+using MyRESTServices.Data.Interfaces;
+using MyRESTServices.Domain;
 using MyRESTServices.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -10,9 +12,37 @@ namespace MyRESTServices.Data
 {
     public class RolesData : IRoleData
     {
-        public Task<Task> AddUserToRole(string username, int roleId)
+        private readonly AppDbContext _context;
+
+        public RolesData(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task<Task> AddUserToRole(string username, int roleId)
+        {
+            try
+            {
+                var userRole = new UsersRoles
+                {
+                    Username = username,
+                    RoleID = roleId
+                };
+
+                _context.UsersRoles.Add(userRole);
+
+                int result = await _context.SaveChangesAsync();
+
+                if (result != 1)
+                {
+                    throw new Exception("Data tidak berhasil ditambahkan");
+                }
+
+                return Task.CompletedTask;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Kesalahan: " + ex.Message);
+            }
         }
 
         public Task<bool> Delete(int id)

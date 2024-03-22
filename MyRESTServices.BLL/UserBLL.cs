@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MyRESTServices.BLL.DTOs;
 using MyRESTServices.BLL.Interfaces;
 using MyRESTServices.Data.Interfaces;
+using MyRESTServices.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,9 +54,13 @@ namespace MyRESTServices.BLL
             throw new NotImplementedException();
         }
 
-        public Task<Task> Insert(UserCreateDTO entity)
+        public async Task<Task> Insert(UserCreateDTO entity)
         {
-            throw new NotImplementedException();
+            var Password = Helper.GetHash(entity.Password);
+            entity.Password = Password;
+            var map = _mapper.Map<User>(entity);
+            var add = await _userData.Insert(map);
+            return Task.FromResult(add);
         }
 
         public async Task<UserDTO> Login(string username, string password)

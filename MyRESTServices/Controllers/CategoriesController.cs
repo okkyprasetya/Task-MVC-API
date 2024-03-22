@@ -6,7 +6,7 @@ using MyRESTServices.BLL.Interfaces;
 
 namespace MyRESTServices.Controllers
 {
-    [Authorize(Roles ="Admin")]
+   
     [Route("api/v1/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
@@ -43,6 +43,7 @@ namespace MyRESTServices.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Post(int id, CategoryCreateDTO categoryCreateDTO)
         {
@@ -65,6 +66,7 @@ namespace MyRESTServices.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, CategoryUpdateDTO categoryUpdateDTO)
         {
@@ -87,6 +89,7 @@ namespace MyRESTServices.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

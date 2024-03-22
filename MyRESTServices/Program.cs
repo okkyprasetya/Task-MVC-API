@@ -39,6 +39,9 @@ builder.Services.AddScoped<IArticleData, ArticleData>();
 builder.Services.AddScoped<IArticleBLL, ArticleBLL>();
 builder.Services.AddScoped<IUserData, UserData>();
 builder.Services.AddScoped<IUserBLL, UserBLL>();
+builder.Services.AddScoped<IRoleData, RolesData>();
+builder.Services.AddScoped<IRoleBLL, RoleBLL>();
+
 
 //automapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

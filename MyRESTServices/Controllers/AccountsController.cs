@@ -65,6 +65,25 @@ namespace MyRESTServices.Controllers
             }
         }
 
-     
+        [HttpPost("Register")]
+        public async Task<IActionResult> Post(UserCreateDTO userCreate)
+        {
+            if (userCreate == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _user.Insert(userCreate);
+                return Ok("Insert data success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }

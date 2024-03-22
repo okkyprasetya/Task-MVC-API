@@ -54,9 +54,19 @@ namespace MyRESTServices.Data
             return user;
         }
 
-        public Task<User> Insert(User entity)
+        public async Task<User> Insert(User entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _context.Users.AddAsync(entity);
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+
+                throw new ArgumentException($"{ex.Message}");
+            }
         }
 
         public async Task<User> Login(string username, string password)
