@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyRESTServices.Data
 {
-    public class RolesData : IRoleData
+    public class RolesData
     {
         private readonly AppDbContext _context;
 
@@ -18,32 +18,32 @@ namespace MyRESTServices.Data
         {
             _context = context;
         }
-        public async Task<Task> AddUserToRole(string username, int roleId)
-        {
-            try
-            {
-                var userRole = new UsersRoles
-                {
-                    Username = username,
-                    RoleID = roleId
-                };
+        //public async Task<Task> AddUserToRole(string username, int roleId)
+        //{
+        //    try
+        //    {
+        //        var userRole = new UsersRoles
+        //        {
+        //            Username = username,
+        //            RoleID = roleId
+        //        };
 
-                _context.UsersRoles.Add(userRole);
+        //        _context.UsersRoles.Add(userRole);
 
-                int result = await _context.SaveChangesAsync();
+        //        int result = await _context.SaveChangesAsync();
 
-                if (result != 1)
-                {
-                    throw new Exception("Data tidak berhasil ditambahkan");
-                }
+        //        if (result != 1)
+        //        {
+        //            throw new Exception("Data tidak berhasil ditambahkan");
+        //        }
 
-                return Task.CompletedTask;
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException("Kesalahan: " + ex.Message);
-            }
-        }
+        //        return Task.CompletedTask;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new ArgumentException("Kesalahan: " + ex.Message);
+        //    }
+        //}
 
         public Task<bool> Delete(int id)
         {

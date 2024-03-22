@@ -27,9 +27,6 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<UsersRoles> UsersRoles { get; set; }
-
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Article>(entity =>
@@ -81,20 +78,20 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.MaxAttempt).HasDefaultValue((byte)5);
         });
 
-        modelBuilder.Entity<UsersRoles>(entity =>
-        {
-            entity.HasKey(ur => new { ur.Username, ur.RoleID }); // Define composite primary key
+        //modelBuilder.Entity<UsersRoles>(entity =>
+        //{
+        //    entity.HasKey(ur => new { ur.Username, ur.RoleID }); // Define composite primary key
 
-            entity.HasOne<User>(ur => ur.User)
-                .WithMany(u => u.Roles)
-                .HasForeignKey(ur => ur.Username)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+        //    entity.HasOne<User>(ur => ur.User)
+        //        .WithMany(u => u.Roles)
+        //        .HasForeignKey(ur => ur.Username)
+        //        .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne<Role>(ur => ur.Role)
-                .WithMany(r => r.Users)
-                .HasForeignKey(ur => ur.RoleId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-        });
+        //    entity.HasOne<Role>(ur => ur.Role)
+        //        .WithMany(r => r.Users)
+        //        .HasForeignKey(ur => ur.RoleId)
+        //        .OnDelete(DeleteBehavior.ClientSetNull);
+        //});
 
         OnModelCreatingPartial(modelBuilder);
     }
